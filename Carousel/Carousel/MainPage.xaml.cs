@@ -84,6 +84,9 @@ namespace Carousel
                 }
             };
 
+            Children.Add(greenContentPage);
+            Children.Add(blueContentPage);
+            Children.Add(redContentPage);
         }
     }
 }
