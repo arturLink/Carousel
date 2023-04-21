@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carousel.Android", "Carousel\Carousel.Android\Carousel.Android.csproj", "{AFDF2814-0321-45CC-93F1-7D34A005ACDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carousel", "Carousel\Carousel\Carousel.csproj", "{51B77E9A-25FC-46AA-863B-8BA632FD71D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carousel", "Carousel\Carousel\Carousel.csproj", "{51B77E9A-25FC-46AA-863B-8BA632FD71D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,9 +10,38 @@ namespace Carousel
 {
     public partial class MainPage : CarouselPage
     {
+        Dictionary<string, string> sonad = new Dictionary<string, string>();
+        Label sonaLabel;
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public MainPage()
         {
             InitializeComponent();
+            sonad.Add("Koer", "Собака");
+            sonad.Add("Kass", "Кошка");
+            
+            int count = 0;
+            foreach (var sona in sonad.Keys)
+            {
+                count++;
+                var sonaPage = new ContentPage
+                {
+                    Content = new StackLayout
+                    {
+                        Children=
+                        {
+                            new Label
+                            {
+                                TabIndex= count,
+                                Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                FontSize = Device.GetNamedSize (NamedSize.Medium, typeof(Label)),
+                                VerticalOptions= LayoutOptions.Start,
+                                HorizontalOptions = LayoutOptions.Center,
+                            }
+                        }
+                    },
+                };
+                Children.Add(sonaPage);
+            }
 
             var redContentPage = new ContentPage
             {
@@ -84,9 +113,9 @@ namespace Carousel
                 }
             };
 
-            Children.Add(greenContentPage);
-            Children.Add(blueContentPage);
-            Children.Add(redContentPage);
+            //Children.Add(greenContentPage);
+            //Children.Add(blueContentPage);
+            //Children.Add(redContentPage);
         }
     }
 }
