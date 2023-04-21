@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,16 @@ namespace Carousel
         Dictionary<string, string> sonad = new Dictionary<string, string>();
         Label sonaLabel;
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        FileInfo file;
         public MainPage()
         {
             InitializeComponent();
             sonad.Add("Koer", "Собака");
             sonad.Add("Kass", "Кошка");
             
+            //Directory.CreateDirectory(folderPath);
+            //File.Create(folderPath);
+
             int count = 0;
             foreach (var sona in sonad.Keys)
             {
@@ -32,7 +37,7 @@ namespace Carousel
                             new Label
                             {
                                 TabIndex= count,
-                                Text = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                Text = sona,
                                 FontSize = Device.GetNamedSize (NamedSize.Medium, typeof(Label)),
                                 VerticalOptions= LayoutOptions.Start,
                                 HorizontalOptions = LayoutOptions.Center,
