@@ -6,47 +6,87 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 
 namespace Carousel
 {
     public partial class MainPage : CarouselPage
     {
-        Dictionary<string, string> sonad = new Dictionary<string, string>();
+        string sonad = "Koer-Собака;Kass-Кошка;Auto-Машина;";
         Label sonaLabel;
-        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+"sonad.txt";
         FileInfo file;
+        string[] fileSonad;
+        string[] estSonad;
         public MainPage()
         {
             InitializeComponent();
-            sonad.Add("Koer", "Собака");
-            sonad.Add("Kass", "Кошка");
-            
-            //Directory.CreateDirectory(folderPath);
-            //File.Create(folderPath);
 
-            int count = 0;
-            foreach (var sona in sonad.Keys)
+            File.WriteAllText(folderPath, sonad);
+
+            string fileKoik = File.ReadAllText(folderPath);
+            fileSonad = fileKoik.Split(';');
+
+            for (int i = 0; i < fileSonad.Length; i++)
             {
-                count++;
-                var sonaPage = new ContentPage
+                string rnd = fileSonad[i];
+                estSonad = rnd.Split('-');
+                var Page = new ContentPage
                 {
                     Content = new StackLayout
                     {
-                        Children=
+                        TabIndex = i,
+                        Children =
                         {
                             new Label
                             {
-                                TabIndex= count,
-                                Text = sona,
-                                FontSize = Device.GetNamedSize (NamedSize.Medium, typeof(Label)),
-                                VerticalOptions= LayoutOptions.Start,
-                                HorizontalOptions = LayoutOptions.Center,
+                                FontSize= 20,
+                                Text = estSonad[0],
+                                BackgroundColor= Color.LightGray,
+                                TextColor = Color.Black,
+                                TabIndex= i
                             }
                         }
-                    },
+                    }
                 };
-                Children.Add(sonaPage);
+                Children.Add(Page);
+                var lbl = ((StackLayout)Page.Content).Children[0] as Label;
+                var tap = new TapGestureRecognizer();
+                lbl.GestureRecognizers.Add(tap);
+                tap.Tapped += Tap_Tapped; ;
             }
+
+
+
+
+
+
+            //int count = 0;
+            //foreach (string sonaCar in fileSonad)
+            //{
+            //    int index = fileSonad[count].IndexOf("-");
+            //    DisplayAlert("", fileSonad[count], "ok");
+            //    string text = fileSonad[count];
+            //    //string estSona = text.Substring(0, index);
+
+            //    var sonaPage = new ContentPage
+            //    {
+            //        Content = new StackLayout
+            //        {
+            //            Children =
+            //            {
+            //                new Label
+            //                {
+            //                    Text = text,
+            //                    FontSize = Device.GetNamedSize (NamedSize.Medium, typeof(Label)),
+            //                    HorizontalOptions = LayoutOptions.Center,
+            //                },
+            //            }
+            //        }
+            //    };
+            //    count++;
+            //    Children.Add(sonaPage);
+            //}
 
             var redContentPage = new ContentPage
             {
@@ -121,6 +161,26 @@ namespace Carousel
             //Children.Add(greenContentPage);
             //Children.Add(blueContentPage);
             //Children.Add(redContentPage);
+        }
+        bool OnOff = true;
+        private void Tap_Tapped(object sender, EventArgs e)
+        {
+            if (OnOff)
+            {
+                var lbl = sender as Label;
+                string Tekst_on = fileSonad[lbl.TabIndex];
+                estSonad = Tekst_on.Split('-');
+                lbl.Text += " - " + estSonad[1];
+                OnOff = false;
+            }
+            else
+            {
+                var lbl = sender as Label;
+                string Tekst_on = fileSonad[lbl.TabIndex];
+                estSonad = Tekst_on.Split('-');
+                lbl.Text = estSonad[0];
+                OnOff = true;
+            }
         }
     }
 }
