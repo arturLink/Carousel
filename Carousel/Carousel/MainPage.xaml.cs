@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -22,7 +23,7 @@ namespace Carousel
         {
             InitializeComponent();
 
-            File.WriteAllText(folderPath, sonad);
+            //File.WriteAllText(folderPath, sonad);
 
             string fileKoik = File.ReadAllText(folderPath);
             fileSonad = fileKoik.Split(';');
@@ -45,6 +46,10 @@ namespace Carousel
                                 BackgroundColor= Color.LightGray,
                                 TextColor = Color.Black,
                                 TabIndex= i
+                            },
+                            new Button
+                            {
+                                Text = "Lisa uus sõna"
                             }
                         }
                     }
@@ -54,39 +59,10 @@ namespace Carousel
                 var tap = new TapGestureRecognizer();
                 lbl.GestureRecognizers.Add(tap);
                 tap.Tapped += Tap_Tapped; ;
+                var btn = ((StackLayout)Page.Content).Children[1] as Button;
+                btn.Clicked += Btn_Clicked;
             }
 
-
-
-
-
-
-            //int count = 0;
-            //foreach (string sonaCar in fileSonad)
-            //{
-            //    int index = fileSonad[count].IndexOf("-");
-            //    DisplayAlert("", fileSonad[count], "ok");
-            //    string text = fileSonad[count];
-            //    //string estSona = text.Substring(0, index);
-
-            //    var sonaPage = new ContentPage
-            //    {
-            //        Content = new StackLayout
-            //        {
-            //            Children =
-            //            {
-            //                new Label
-            //                {
-            //                    Text = text,
-            //                    FontSize = Device.GetNamedSize (NamedSize.Medium, typeof(Label)),
-            //                    HorizontalOptions = LayoutOptions.Center,
-            //                },
-            //            }
-            //        }
-            //    };
-            //    count++;
-            //    Children.Add(sonaPage);
-            //}
 
             var redContentPage = new ContentPage
             {
@@ -162,6 +138,12 @@ namespace Carousel
             //Children.Add(blueContentPage);
             //Children.Add(redContentPage);
         }
+
+        private async void Btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LisaPage());
+        }
+
         bool OnOff = true;
         private void Tap_Tapped(object sender, EventArgs e)
         {
